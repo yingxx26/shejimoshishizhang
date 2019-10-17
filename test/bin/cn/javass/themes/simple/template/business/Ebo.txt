@@ -1,0 +1,58 @@
+package ${modulePackge}.business.ebo;
+
+import java.util.Collection;
+
+import org.springframework.transaction.annotation.Transactional;
+import cn.javass.framework.uuidservice.UuidService;
+import ${modulePackge}.business.ebi.*;
+import ${modulePackge}.dao.dao.*;
+import ${modulePackge}.vo.*;
+
+@Transactional
+public class ${moduleNameSuperCase}Ebo implements ${moduleNameSuperCase}Ebi{
+	private ${moduleNameSuperCase}DAO dao = null;
+	public void setDao(${moduleNameSuperCase}DAO dao){
+		this.dao = dao;
+	}
+	private UuidService uuidService = null;
+	public void setUuidService(UuidService uuidService){
+		this.uuidService = uuidService;
+	}
+
+	@Override
+	public String create(${moduleNameSuperCase}Model obj) {
+		obj.setUuid(this.uuidService.getNextUuid(obj.TBL_NAME,6,"0",obj.TBL_NAME+"#",true,20));
+		return dao.create(obj);
+	}
+
+	@Override
+	public void delete(${moduleNameSuperCase}Model obj) {
+		dao.delete(obj);
+	}
+
+	@Override
+	public Collection<${moduleNameSuperCase}Model> getAll(boolean needPage, int start, int pageShow) {
+		return dao.getAll(needPage, start, pageShow);
+	}
+
+	@Override
+	public Collection<${moduleNameSuperCase}Model> getByCondition(${moduleNameSuperCase}QueryModel queryModel,
+			boolean needPage, int start, int pageShow) {
+		return dao.getByCondition(queryModel, needPage, start, pageShow);
+	}
+
+	@Override
+	public ${moduleNameSuperCase}Model getByUuid(String uuid) {
+		return (${moduleNameSuperCase}Model)dao.getByUuid(uuid);
+	}
+
+	@Override
+	public int getCount(${moduleNameSuperCase}QueryModel queryModel) {
+		return dao.getCount(queryModel);
+	}
+
+	@Override
+	public void update(${moduleNameSuperCase}Model obj) {
+		dao.update(obj);
+	}
+}

@@ -1,0 +1,15 @@
+package ${modulePackge}.vo;
+
+public class ${moduleNameCase}Model {
+	private String uuid;	
+	$[cn.javass.themes.mytheme.visitors.VoProperty]
+	
+	
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	$[cn.javass.themes.mytheme.visitors.VoPropertyGetterSetter]
+}

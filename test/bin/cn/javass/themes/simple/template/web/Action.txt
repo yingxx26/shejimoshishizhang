@@ -1,0 +1,112 @@
+package ${modulePackge}.web.action;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import ${modulePackge}.business.ebi.*;
+import ${modulePackge}.vo.*;
+import ${modulePackge}.web.vo.*;
+import cn.javass.framework.struts2base.BaseActionCallUtil;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
+public class ${moduleNameSuperCase}Action extends ActionSupport{
+	private ${moduleNameSuperCase}Ebi ebi = null;
+	public void setEbi(${moduleNameSuperCase}Ebi ebi){
+		this.ebi = ebi;
+	}
+		
+	public ${moduleNameSuperCase}Model ${action_modelName} = new ${moduleNameSuperCase}Model();
+	public ${moduleNameSuperCase}QueryModel ${action_queryModelName} = new ${moduleNameSuperCase}QueryModel();
+	public ${moduleNameSuperCase}WebModel ${action_webModelName} = new ${moduleNameSuperCase}WebModel();
+	
+	@Override
+	public String execute(){
+		if(${action_webModelName}.getSubmitFlag()!=null){
+			if(${action_webModelName}.getSubmitFlag().equals("toList")){
+				return BaseActionCallUtil.call(this, "toList","toList","toError");
+			}else if(${action_webModelName}.getSubmitFlag().equals("toAdd")){
+				return BaseActionCallUtil.call(this, "toAdd","toAdd","toError");
+			}else if(${action_webModelName}.getSubmitFlag().equals("add")){
+				return BaseActionCallUtil.call(this, "add","toList","toAdd");
+			}else if(${action_webModelName}.getSubmitFlag().equals("toUpdate")){
+				return BaseActionCallUtil.call(this, "toUpdate","toUpdate","toList");
+			}else if(${action_webModelName}.getSubmitFlag().equals("update")){
+				return BaseActionCallUtil.call(this, "update","toList","toUpdate");
+			}else if(${action_webModelName}.getSubmitFlag().equals("toDelete")){
+				return BaseActionCallUtil.call(this, "toDelete","toDelete","toList");
+			}else if(${action_webModelName}.getSubmitFlag().equals("delete")){
+				return BaseActionCallUtil.call(this, "delete","toList","toDelete");
+			}else if(${action_webModelName}.getSubmitFlag().equals("toQuery")){
+				return BaseActionCallUtil.call(this, "toQuery","toQuery","toList");
+			}else if(${action_webModelName}.getSubmitFlag().equals("query")){
+				return BaseActionCallUtil.call(this, "query","toList","toQuery");
+			}
+		}
+		return this.SUCCESS;
+	}
+	
+	public void toList(){
+		
+		int start = (this.${action_webModelName}.getNowPage()-1)*${action_webModelName}.getPageShowNum();
+		int totalPage = 0;
+		int totalRecords = 0;
+		Collection<${moduleNameSuperCase}Model> col = new ArrayList<${moduleNameSuperCase}Model>();
+		boolean isQuery = false;
+		Object isQueryObj = ActionContext.getContext().getSession().get("${moduleNameSuperCase}_IsQuery");
+		if(isQueryObj!=null){
+			isQuery = (Boolean)isQueryObj;
+		}
+		if(isQuery){
+			${moduleNameSuperCase}QueryModel ${action_queryModelName} = (${moduleNameSuperCase}QueryModel)ActionContext.getContext().getSession().get("${moduleNameSuperCase}_${action_queryModelName}");
+			totalRecords = ebi.getCount(${action_queryModelName});
+			col = ebi.getByCondition(${action_queryModelName}, true, start, ${action_webModelName}.getPageShowNum());
+		}else{
+			totalRecords = ebi.getCount(null);
+			col = ebi.getAll(true, start, ${action_webModelName}.getPageShowNum());
+		}
+		totalPage = (int)Math.ceil(totalRecords*1.0/${action_webModelName}.getPageShowNum());
+		
+		this.${action_webModelName}.setListCol(col);
+		this.${action_webModelName}.setTotalPage(totalPage);
+		this.${action_webModelName}.setTotalRecords(totalRecords);
+	}
+	public void toAdd(){
+		clearQuerySession();
+	}
+	public void add(){
+		clearQuerySession();
+		this.ebi.create(${action_modelName});
+		this.toList();
+	}
+	public void toUpdate(){
+		clearQuerySession();
+		this.${action_modelName} = this.ebi.getByUuid(${action_modelName}.getUuid());
+	}
+	public void update(){
+		clearQuerySession();
+		this.ebi.update(${action_modelName});
+		this.toList();
+	}
+	public void toDelete(){
+		clearQuerySession();
+		this.${action_modelName} = this.ebi.getByUuid(${action_modelName}.getUuid());
+	}
+	public void delete(){
+		clearQuerySession();
+		this.ebi.delete(${action_modelName});
+		this.toList();
+	}
+	public void toQuery(){
+	}
+	public void query(){
+		ActionContext.getContext().getSession().put("${moduleNameSuperCase}_IsQuery",Boolean.TRUE);
+		ActionContext.getContext().getSession().put("${moduleNameSuperCase}_${action_queryModelName}", ${action_queryModelName});
+		toList();
+	}
+	private void clearQuerySession(){
+		ActionContext.getContext().getSession().put("${moduleNameSuperCase}_IsQuery",Boolean.FALSE);
+		ActionContext.getContext().getSession().remove("${moduleNameSuperCase}_${action_queryModelName}");
+	}
+}

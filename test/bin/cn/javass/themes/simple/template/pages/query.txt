@@ -1,0 +1,23 @@
+<%@ page contentType="text/html;charset=gb2312"%>
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312"></meta>
+ 
+ <link href="<%=request.getContextPath() %>/common/css/css.css" rel="stylesheet" type="text/css">
+ 
+ <form action="<%=request.getContextPath() %>/${moduleName}Action.action" method="post">
+   <input type="hidden" name="${action_webModelName}.submitFlag" value="query">
+  <table width="100%" border="0" cellpadding="0" cellspacing="1" class="tableLine DoubleColorTable" >
+    <tr>
+      <td colspan="2" align="center">${mouduleName_CN}查询</td>
+    </tr>
+    <tr>
+      <td>编号</td>
+      <td><input type="text" name="${action_queryModelName}.uuid"  class="input"/></td>
+    </tr>
+ 	$[cn.javass.themes.simple.visitors.QueryPageInputs] 
+    <tr>
+      <td colspan="2" align="center"><input type="submit" value="查询"  class="button"/>
+      <input type="button" value="返回" onclick="history.back();"  class="button"/>
+      </td>
+    </tr>
+  </table>
+</form>

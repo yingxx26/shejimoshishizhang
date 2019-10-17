@@ -1,0 +1,6 @@
+package ${modulePackge}.vo;
+
+public class ${moduleNameSuperCase}QueryModel extends ${moduleNameSuperCase}Model{
+	$[cn.javass.themes.simple.visitors.QmPropertiesDesign]
+	$[cn.javass.themes.simple.visitors.QmGetterAndSetter]
+}

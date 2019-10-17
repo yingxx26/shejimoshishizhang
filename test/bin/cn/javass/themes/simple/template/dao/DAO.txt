@@ -1,0 +1,9 @@
+package ${modulePackge}.dao.dao;
+
+import ${modulePackge}.vo.*;
+import cn.javass.framework.util.spring2h3.BaseSpring2H3DAO;
+import java.util.*;
+
+public interface ${moduleNameSuperCase}DAO extends BaseSpring2H3DAO<${moduleNameSuperCase}Model,${moduleNameSuperCase}QueryModel>{	
+	
+}

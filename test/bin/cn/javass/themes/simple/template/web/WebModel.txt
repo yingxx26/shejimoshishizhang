@@ -1,0 +1,8 @@
+package ${modulePackge}.web.vo;
+
+import cn.javass.framework.struts2base.BaseWebModel;
+
+
+public class ${moduleNameSuperCase}WebModel extends BaseWebModel{
+
+}

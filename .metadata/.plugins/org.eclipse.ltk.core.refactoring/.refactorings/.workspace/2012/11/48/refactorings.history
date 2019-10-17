@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;x-gen/build/cn&apos;" deleteContents="false" description="Delete resource &apos;x-gen/build/cn&apos;" element1="/x-gen/build/cn" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1354086928625"/>
+</session>

@@ -1,0 +1,59 @@
+package ${modulePackge}.dao.impl;
+
+import java.util.Collection;
+
+import org.hibernate.Query;
+
+import ${modulePackge}.dao.dao.${moduleNameSuperCase}DAO;
+import ${modulePackge}.vo.${moduleNameSuperCase}Model;
+import ${modulePackge}.vo.${moduleNameSuperCase}QueryModel;
+import cn.javass.framework.util.spring2h3.BaseSpring2H3Impl;
+
+public class ${moduleNameSuperCase}H3Impl extends BaseSpring2H3Impl<${moduleNameSuperCase}Model,${moduleNameSuperCase}QueryModel> implements ${moduleNameSuperCase}DAO{
+	
+	@Override
+	public String preparedHql(${moduleNameSuperCase}QueryModel qm, String initHql) {
+		if(qm.getUuid()!=null && qm.getUuid().trim().length()>0){
+			initHql += " and o.uuid=:uuid ";
+		}
+		$[cn.javass.themes.simple.visitors.GenH3ImplPreparedHql]
+				
+		return initHql;
+	}
+
+	@Override
+	public void setHqlValue(${moduleNameSuperCase}QueryModel qm, Query q) {
+		if(qm.getUuid()!=null && qm.getUuid().trim().length()>0){
+			q.setString("uuid", qm.getUuid());
+		}
+		$[cn.javass.themes.simple.visitors.GenH3ImplSetHqlValue]
+	}
+
+	@Override
+	public Collection<${moduleNameSuperCase}Model> getAll(boolean needPage, int start, int pageShow) {
+		String hql = "select o from ${moduleNameSuperCase}Model o where 1=1 ";		
+		return this.getAll(hql, needPage, start, pageShow);
+	}
+	@Override
+	public Collection<${moduleNameSuperCase}Model> getByCondition(${moduleNameSuperCase}QueryModel queryModel, boolean needPage,
+			int start, int pageShow) {
+		String hql = "select o from ${moduleNameSuperCase}Model o  where 1=1 ";	
+		
+		return this.getByCondition(hql,queryModel, needPage, start, pageShow);
+	}
+
+	@Override
+	public ${moduleNameSuperCase}Model getByUuid(String uuid) {
+		return this.getByUuid(${moduleNameSuperCase}Model.class,uuid);
+	}
+
+	public int getCount(${moduleNameSuperCase}QueryModel queryModel) {
+		String hql = "select count(o) from ${moduleNameSuperCase}Model o  where 1=1 ";
+		return this.getCount(hql,queryModel);
+	}
+	@Override
+	public void delete(String uuid) {
+		String hql = "delete from ${moduleNameSuperCase}Model o where o.uuid=?";
+		this.delete(hql, uuid);
+	}
+}
