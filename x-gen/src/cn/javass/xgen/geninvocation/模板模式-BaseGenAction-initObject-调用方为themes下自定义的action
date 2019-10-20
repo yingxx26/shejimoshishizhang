@@ -1,0 +1,2 @@
+generate->beforeAction/executeDecorators->execute->beforeAction/executeDecorators
+自定义的action 重写父类方法
